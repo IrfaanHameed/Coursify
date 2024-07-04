@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <style>
+    /* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding: 48px 0 0; /* Adjust as needed */
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+    background-color: #000000;
+    color:beige;
+    height:100vh;
+}
+
+.sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px); /* Adjust as needed */
+    padding-top: 20px; /* Adjust as needed */
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable sidebar */
+    background-color: #000000;
+    color:rgb(81, 81, 43);
+    margin-top: -100px;
+    height: 150vh;
+}
+
+.sidebar .nav-link {
+    font-weight: 500;
+    color: #bdbaa2;
+}
+
+.sidebar .nav-link:hover {
+    color: #7da02b;
+}
+
+/* Main content */
+.main-content {
+    margin-left: 240px; /* Adjust based on sidebar width */
+}
+
+    </style>
+  <div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+            <div class="sidebar-sticky"><br/><br/>
+                <h5 class=" mt-3 mb-4" style="margin-left: 15px;font-size: 28px;color: rgb(207, 197, 184);font-weight: 200;">Coursify</h5> <!-- Heading -->
+                <hr style="background-color: rgb(186, 174, 2);"/>
+
+                {% if user.is_authenticated %}
+                <ul class="nav flex-column mt-3">
+                    <li class="nav-item">
+                        <span class="nav-link text-gold">Welcome , {{ user.username }}</span>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dashboard' %}">
+                            <span data-feather="home"></span>
+                            Dashboard <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'course_list' %}">
+                            <span data-feather="book"></span>
+                            Courses
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'registration_list' %}">
+                            <span data-feather="file-text"></span>
+                            Registrations
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'student_list' %}">
+                            <span data-feather="users"></span>
+                            Students
+                        </a>
+                    </li>
+                </ul>
+                {% else %}
+                <ul class="nav flex-column mt-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    </li>
+                </ul>
+                {% endif %}
+            </div>
+        </nav>
+        
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <!-- Your main content here -->
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</div>
+
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <!-- Your existing content here -->
+            
+
+        </main>
+    </div>
+</div>
+
+
+    <div class="container">
+       
+    </div>
+  
+    </style>
+    
+</body>
+</html>

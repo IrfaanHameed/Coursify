@@ -1,0 +1,298 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br/><br/>
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <h5 class="card-title">Total Students</h5><hr>
+                <p class="card-text">{{ total_students }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5 class="card-title">Total Courses</h5><hr>
+                <p class="card-text">{{ total_courses }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card text-white bg-secondary">
+            <div class="card-body">
+                <h5 class="card-title">Total Registrations</h5><hr>
+                <p class="card-text">{{ total_registrations }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<br/><br/>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <canvas id="studentsBarChart"></canvas>
+    </div>
+    <div class="col-md-4 mb-4">
+        <canvas id="coursesBarChart"></canvas>
+    </div>
+    <div class="col-md-4 mb-4">
+        <canvas id="registrationsBarChart"></canvas>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Students Pie Chart</h5>
+                <canvas id="studentsPieChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Courses Pie Chart</h5>
+                <canvas id="coursesPieChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Registrations Pie Chart</h5>
+                <canvas id="registrationsPieChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Course Completion Doughnut Chart</h5>
+                <canvas id="courseCompletionDoughnutChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Course Completion Radar Chart</h5>
+                <canvas id="courseCompletionRadarChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Additional Radar Chart</h5>
+                <canvas id="additionalRadarChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card h5,p {
+        text-align: center;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var ctxStudentsBar = document.getElementById('studentsBarChart').getContext('2d');
+        var studentsBarChart = new Chart(ctxStudentsBar, {
+            type: 'bar',
+            data: {
+                labels: ['Students'],
+                datasets: [{
+                    label: 'Total Students',
+                    data: [{{ total_students }}],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctxCoursesBar = document.getElementById('coursesBarChart').getContext('2d');
+        var coursesBarChart = new Chart(ctxCoursesBar, {
+            type: 'bar',
+            data: {
+                labels: ['Courses'],
+                datasets: [{
+                    label: 'Total Courses',
+                    data: [{{ total_courses }}],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctxRegistrationsBar = document.getElementById('registrationsBarChart').getContext('2d');
+        var registrationsBarChart = new Chart(ctxRegistrationsBar, {
+            type: 'bar',
+            data: {
+                labels: ['Registrations'],
+                datasets: [{
+                    label: 'Total Registrations',
+                    data: [{{ total_registrations }}],
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctxStudentsPie = document.getElementById('studentsPieChart').getContext('2d');
+        var studentsPieChart = new Chart(ctxStudentsPie, {
+            type: 'pie',
+            data: {
+                labels: ['Students'],
+                datasets: [{
+                    label: 'Total Students',
+                    data: [{{ total_students }}],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            }
+        });
+
+        var ctxCoursesPie = document.getElementById('coursesPieChart').getContext('2d');
+        var coursesPieChart = new Chart(ctxCoursesPie, {
+            type: 'pie',
+            data: {
+                labels: ['Courses'],
+                datasets: [{
+                    label: 'Total Courses',
+                    data: [{{ total_courses }}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            }
+        });
+
+        var ctxRegistrationsPie = document.getElementById('registrationsPieChart').getContext('2d');
+        var registrationsPieChart = new Chart(ctxRegistrationsPie, {
+            type: 'pie',
+            data: {
+                labels: ['Registrations'],
+                datasets: [{
+                    label: 'Total Registrations',
+                    data: [{{ total_registrations }}],
+                    backgroundColor: [
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            }
+        });
+
+        var ctxCourseCompletionDoughnut = document.getElementById('courseCompletionDoughnutChart').getContext('2d');
+        var courseCompletionDoughnutChart = new Chart(ctxCourseCompletionDoughnut, {
+            type: 'doughnut',
+            data: {
+                labels: ['Completed', 'In Progress', 'Not Started'],
+                datasets: [{
+                    label: 'Course Completion',
+                    data: [{{ completed_courses }}, {{ in_progress_courses }}, {{ not_started_courses }}],
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(255, 99, 132, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            }
+        });
+
+        var ctxCourseCompletionRadar = document.getElementById('courseCompletionRadarChart').getContext('2d');
+        var courseCompletionRadarChart = new Chart(ctxCourseCompletionRadar, {
+            type: 'radar',
+            data: {
+                labels: ['Completed', 'In Progress', 'Not Started'],
+                datasets: [{
+                    label: 'Course Completion',
+                    data: [{{ completed_courses }}, {{ in_progress_courses }}, {{ not_started_courses }}],
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    r: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctxAdditionalRadar = document.getElementById('additionalRadarChart').getContext('2d');
+        var additionalRadarChart = new Chart(ctxAdditionalRadar, {
+            type: 'radar',
+            data: {
+                labels: [{% for item in radar_data %}'{{ item.label }}',{% endfor %}],
+                datasets: [{
+                    label: 'Number of Registrations',
+                    data: [{% for item in radar_data %}{{ item.value }},{% endfor %}],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    r: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

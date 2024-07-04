@@ -1,0 +1,28 @@
+<!-- templates/course_list.html -->
+{% extends 'base.html' %}
+{% block content %}
+<br/><br><h3>Available Courses</h3>
+
+<table class="table mt-3 table-secondary ">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for course in courses %}
+        <tr>
+            <td >{{ course.name }}</td>
+            <td>{{ course.description }}</td>
+            <td>
+                <a href="{% url 'course_update' course.pk %}" style="text-decoration: none;color:rgb(25, 71, 155)" class="">Edit</a>
+                <a href="{% url 'course_delete' course.pk %}" style="text-decoration: none;color: red;" class="">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'course_create' %}" class="btn btn-primary">Add Course</a><br/><br/>
+{% endblock %}

@@ -1,0 +1,11 @@
+<!-- templates/registration_confirm_delete.html -->
+{% extends 'base.html' %}
+{% block content %}
+<br/><h3>Delete Registration</h3><hr>
+<p>Are you sure you want to delete the registration for {{ registration.student.name }} in {{ registration.course.name }}?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a href="{% url 'registration_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

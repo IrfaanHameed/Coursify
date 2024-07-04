@@ -1,0 +1,28 @@
+<!-- templates/registration_list.html -->
+{% extends 'base.html' %}
+{% block content %}
+<br/>
+<h3>Registrations</h3><hr>
+<table class="table mt-3 table-secondary">
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Course</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for registration in registrations %}
+        <tr>
+            <td>{{ registration.student.name }}</td>
+            <td>{{ registration.course.name }}</td>
+            <td>
+                <a href="{% url 'registration_update' registration.pk %}" style="text-decoration: none;color:rgb(25, 71, 155)">Edit</a>
+                <a href="{% url 'registration_delete' registration.pk %}" style="text-decoration: none;color: red;">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'registration_create' %}" class="btn btn-primary">Register</a><br/><br/>
+{% endblock %}

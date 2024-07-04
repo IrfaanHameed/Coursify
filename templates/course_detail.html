@@ -1,0 +1,12 @@
+<!-- templates/course_detail.html -->
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ course.name }}</h1>
+<p>{{ course.description }}</p>
+<h2>Registered Students</h2>
+<ul>
+    {% for registration in registrations %}
+    <li>{{ registration.student.name }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

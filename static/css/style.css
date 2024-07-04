@@ -1,0 +1,29 @@
+/* static/css/styles.css */
+body {
+    background-color: #f8f9fa;
+}
+
+.navbar {
+    background-color: #343a40 !important;
+}
+
+.navbar .nav-link, .navbar .navbar-brand {
+    color: #fff !important;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card h5, .card p {
+    margin: 0;
+    text-align: center;
+}
+
+.card .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
